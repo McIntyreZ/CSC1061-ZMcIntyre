@@ -2,12 +2,15 @@
 public class CarDriver {
 
 	public static void main(String[] args) {
-		Car myCar = new Car();
+		Car myCar = new Car("Pink", 50, 20.0, true);
 		
-		System.out.println(myCar.getColor());
+		myCar.drive(5);
+		myCar.clean();
+		myCar.setWheels(15, "Alloy");
 		
-		myCar.setColor("Platinum");
-		
-		
+		Wheel[] wheels = myCar.getWheels();
+		for (Wheel wheel : wheels) {
+			System.out.println(wheel);
+		}
 	}
 }

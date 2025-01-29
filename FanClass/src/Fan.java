@@ -17,8 +17,8 @@ public class Fan {
 		on = false;
 		radius = 5;
 		color = "Blue";
-		id = nextId;
-		nextId += 1; // Allows the next id to have a different and unique id (nextId is static)
+		id = nextId; // Assigns a unique id 
+		nextId += 1; // Changes the next id to have a different and unique id (nextId is static)
 	}
 	
 	// Getters and Setters

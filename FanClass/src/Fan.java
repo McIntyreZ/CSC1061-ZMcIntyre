@@ -1,7 +1,4 @@
 
-// TODO comment out the program
-
-
 public class Fan {
 	// Data Members
 	private final int SLOW = 1;
@@ -11,8 +8,8 @@ public class Fan {
 	private boolean on; 
 	private int radius;
 	private String color;
-	private int id = 0; // Program will assign each Fan object an id which will stay with the object
-	private static int nextId = 1;
+	private int id = 0; // Program will assign and keep track each fan object an id
+	private static int nextId = 1; // Allows program to have unique ids for each object
 	
 	// Constructor
 	public Fan() {
@@ -21,7 +18,7 @@ public class Fan {
 		radius = 5;
 		color = "Blue";
 		id = nextId;
-		nextId += 1;
+		nextId += 1; // Allows the next id to have a different and unique id (nextId is static)
 	}
 	
 	// Getters and Setters
@@ -29,10 +26,12 @@ public class Fan {
 		return speed;
 	}
 	public void setSpeed(int speed) {
-		if (speed > FAST) {
+		if (speed > FAST) {      // Ensures the speed will not be set past the max (FAST)
+			System.out.println("The maximum speed of the fan is 3.");
 			this.speed = FAST;
 		}
-		else if (speed < SLOW) {
+		else if (speed < SLOW) { // Ensures the speed will not be set below the min (SLOW)
+			System.out.println("The minimum speed of the fan is 1.");
 			this.speed = SLOW;
 		}
 		else {
@@ -49,7 +48,7 @@ public class Fan {
 		return radius;
 	}
 	public void setRadius(int radius) {
-		if (radius > 0) {
+		if (radius > 0) { // Ensures the radius of the fan will not be set below 0
 			this.radius = radius;
 		}
 	}
@@ -59,7 +58,7 @@ public class Fan {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	public int getId() {
+	public int getId() { // No option to set id, only the getter is available
 		return id;
 	}
 
@@ -74,7 +73,4 @@ public class Fan {
 					+ color + ", id = " + id + ",] The fan is off.";
 		}
 	}
-	
-	
-	
-}
+} // End class Fan

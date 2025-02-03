@@ -1,13 +1,49 @@
 
 public class HourlyEmployee extends Employee {
-
+	// Data Members
+	private double hourlyWage;
+	private double hours;
+		
+	// Constructors
 	public HourlyEmployee() {
-		// TODO Auto-generated constructor stub
+		super();
+		hourlyWage = 0.0;
+		hours = 0.0;
 	}
 
-	public HourlyEmployee(String firstName, String lastName, long socialSecNum) {
+	public HourlyEmployee(String firstName, String lastName, long socialSecNum,
+			double hourlyWage, double hours) {
 		super(firstName, lastName, socialSecNum);
-		// TODO Auto-generated constructor stub
+		this.hourlyWage = hourlyWage;
+		this.hours = hours; 
 	}
 
+	// Getters and Setters
+	public double getHourlyWage() {
+		return hourlyWage;
+	}
+
+	public void setHourlyWage(double hourlyWage) {
+		this.hourlyWage = hourlyWage;
+	}
+
+	public double getHours() {
+		return hours;
+	}
+
+	public void setHours(double hours) {
+		this.hours = hours;
+	}
+
+	@Override
+	public double getPaymentAmount() {
+		return hourlyWage * hours;
+	}
+	
+	@Override
+	public String toString() {
+		return "SalariedEmployee [firstName = " + firstName + "\n lastName = " + lastName
+				+ "\n socialSecNum = " + socialSecNum + "\n hourlyWage = " + hourlyWage + 
+				"\n hours" + hours +"]";
+	}
 }

@@ -32,9 +32,9 @@ public class FileWriter {
 			}
 			
 			pWriter.println("Aristotle's Golden Mean philosophy is very old.");
-			pWriter.flush(); // Essentially "empties" the printwriter onto the file 
+			pWriter.flush(); // Essentially "empties" the print writer onto the file 
 			pWriter.close(); // Automatically flushes whatever has not already been flushed 
-							 // from the printwiter 
+							 // from the print witer 
 			
 	}
 

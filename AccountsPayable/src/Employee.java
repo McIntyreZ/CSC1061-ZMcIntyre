@@ -4,6 +4,7 @@ public class Employee {
 	private String firstName;
 	private String lastName;
 	private long socialSecNum;
+	private double payAmount;
 	
 	// Constructors
 	public Employee() {
@@ -33,23 +34,25 @@ public class Employee {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public String getSocialSecNum() {
+	public long getSocialSecNum() {
 		return socialSecNum;
 	}
-	public void setSocialSecNum(String socialSecNum) {
+	public void setSocialSecNum(long socialSecNum) {
 		this.socialSecNum = socialSecNum;
 	}
 	
 	// Other Methods
-	public double getPaymentAmout(){
-		
+	public double getPaymentAmount() {
+		return payAmount;
 	}
+	
 
 	@Override
 	public String toString() {
 		return "Employee [firstName = " + firstName +"\n lastName = " + 
 				lastName + "\n socialSecNum = " + socialSecNum + "]";
 	}
+
 	
 	
 

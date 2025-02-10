@@ -3,6 +3,10 @@ import java.sql.Date;
 public class GeometricObject {
 	
 
+	public class Rectangle {
+
+	}
+
 	private String color = "white";
 	private boolean isFilled = false;
 	private Date dateCreated = new Date();

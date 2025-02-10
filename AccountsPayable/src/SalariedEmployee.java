@@ -2,7 +2,6 @@
 public class SalariedEmployee extends Employee {
 	// Data Members
 	private double weeklySalary;
-	private 
 	
 	// Constructors
 	public SalariedEmployee() {
@@ -30,8 +29,9 @@ public class SalariedEmployee extends Employee {
 	
 	@Override
 	public String toString() {
-		return "SalariedEmployee [firstName = " + firstName + "\n lastName = " + lastName
-				+ "\n socialSecNum = " + socialSecNum + "\n weeklySalary =" + weeklySalary + "]";
+		return "SalariedEmployee [firstName = " + super.getFirstName() + 
+				"\n lastName = " + super.getLastName() + "\n socialSecNum = " 
+				+ super.getSocialSecNum() + "\n weeklySalary =" + weeklySalary + "]";
 	}
 	
 	

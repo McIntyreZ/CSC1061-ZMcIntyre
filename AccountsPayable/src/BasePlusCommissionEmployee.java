@@ -28,9 +28,11 @@ public class BasePlusCommissionEmployee extends CommissionEmployee {
 	
 	@Override
 	public String toString() {
-		return "SalariedEmployee [firstName = " + firstName + "\n lastName = " + lastName
-				+ "\n socialSecNum = " + socialSecNum + "\n grossSales = " + grossSales + 
-				"\n commissionRate" + commissionRate  + "\n basePay " + basePay + "]";
+		return "SalariedEmployee [firstName = " + super.getFirstName() + 
+				"\n lastName = " + super.getLastName() + "\n socialSecNum = "
+				+ super.getSocialSecNum() + "\n grossSales = " + super.getGrossSales()
+				+ "\n commissionRate" + super.getCommissionRate()  + "\n basePay "
+				+ basePay + "]";
 	}
 
 }

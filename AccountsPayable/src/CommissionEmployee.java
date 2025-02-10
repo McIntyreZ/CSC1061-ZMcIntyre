@@ -37,9 +37,10 @@ public class CommissionEmployee extends Employee {
 	}
 	
 	public String toString() {
-		return "SalariedEmployee [firstName = " + firstName + "\n lastName = " + lastName
-				+ "\n socialSecNum = " + socialSecNum + "\n grossSales = " + grossSales + 
-				"\n commissionRate" + commissionRate  + "]";
+		return "SalariedEmployee [firstName = " + super.getFirstName() + "\n lastName = "
+				+ super.getLastName() + "\n socialSecNum = " + super.getSocialSecNum() 
+				+ "\n grossSales = " + grossSales + "\n commissionRate" + commissionRate
+				+ "]";
 	}
 	
 }

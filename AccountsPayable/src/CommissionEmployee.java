@@ -31,15 +31,17 @@ public class CommissionEmployee extends Employee {
 		this.commissionRate = commissionRate;
 	}
 	
+	// Other methods
 	@Override
 	public double getPaymentAmount(){
 		return grossSales * commissionRate;
 	}
 	
+	@Override
 	public String toString() {
-		return "SalariedEmployee [firstName = " + super.getFirstName() + "\n lastName = "
+		return "CommissionEmployee [firstName = " + super.getFirstName() + "\n lastName = "
 				+ super.getLastName() + "\n socialSecNum = " + super.getSocialSecNum() 
-				+ "\n grossSales = " + grossSales + "\n commissionRate" + commissionRate
+				+ "\n grossSales = " + grossSales + "\n commissionRate = " + commissionRate
 				+ "]";
 	}
 	

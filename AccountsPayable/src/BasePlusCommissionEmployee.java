@@ -3,6 +3,7 @@ public class BasePlusCommissionEmployee extends CommissionEmployee {
 	// Data Members
 	private double basePay;
 	
+	// Constructors
 	public BasePlusCommissionEmployee() {
 		super();
 		basePay = 0.0;
@@ -28,10 +29,10 @@ public class BasePlusCommissionEmployee extends CommissionEmployee {
 	
 	@Override
 	public String toString() {
-		return "SalariedEmployee [firstName = " + super.getFirstName() + 
+		return "BasePlusCommission [firstName = " + super.getFirstName() + 
 				"\n lastName = " + super.getLastName() + "\n socialSecNum = "
 				+ super.getSocialSecNum() + "\n grossSales = " + super.getGrossSales()
-				+ "\n commissionRate" + super.getCommissionRate()  + "\n basePay "
+				+ "\n commissionRate = " + super.getCommissionRate()  + "\n basePay "
 				+ basePay + "]";
 	}
 

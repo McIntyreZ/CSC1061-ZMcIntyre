@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Database {
@@ -48,9 +50,24 @@ public class Database {
 				return rect; 
 			}
 		}
-		Circle circ1 = new Circle();
+		Circle circ1 = new Circle(); // Only so Eclipse doesn't say the method doesn't have a return
 		return circ1;
 		
+	}
+	
+	public static List<GeometricObject> readDatabase() {
+		List<GeometricObject> objList = new ArrayList<>();
+		GeometricObject obj = null; 
+		
+		try {
+			while((obj = readGeometricObject()) != null) {
+			objList.add(obj);
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return objList;
 	}
 	
 }

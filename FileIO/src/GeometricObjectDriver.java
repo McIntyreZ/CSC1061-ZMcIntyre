@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.util.List;
 
 public class GeometricObjectDriver {
 
@@ -29,6 +30,11 @@ public class GeometricObjectDriver {
 		}
 		catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
+		}
+		
+		List<GeometricObject> gObjs = Database.readDatabase();
+		for (GeometricObject obj: gObjs) {
+			System.out.println(obj); 
 		}
 	}
 

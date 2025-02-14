@@ -16,10 +16,17 @@ public class CreditCardValidator {
 			return false; 
 		}
 		
+		int evenSum = sumOfEvenPlace(cnum);
+		int oddSum = sumOfOddPlace(cnum);
 		
+		int total = evenSum + oddSum;
 		
-		
-		return false; 
+		if (total % 10 > 0) {
+			return false;  // The program will return false every time at this point
+		}
+		else {
+			return true; 
+		}
 	}
 	
 	private static long getPrefix(long num, int numDigits) {
@@ -29,7 +36,6 @@ public class CreditCardValidator {
 		}
 		
 		String prefixStr = str.substring(0, numDigits);
-		System.out.println("Substring: " + prefixStr);
 		
 		long retNum = Long.parseLong(prefixStr);
 		
@@ -38,18 +44,21 @@ public class CreditCardValidator {
 	
 	private static int sumOfEvenPlace(long num) {
 		String str = Long.toString(num);
+		int sum = 0;
 		
 		for (int i = str.length() - 2; i > -1; i -= 2) {
 			char c = str.charAt(i);
 			int product = Character.getNumericValue(c) * 2;
 			int digit = getDigit(product); 
+			sum += digit; 
 		}
 		
+		return sum;
 	}
 	
 	private static int getDigit(int num) {
 		int digit = num;
-		
+			// Using switch just as another way to accomplish the goal
 			switch(num) {
 			case 10:
 				digit = 1;
@@ -66,7 +75,20 @@ public class CreditCardValidator {
 			case 18:
 				digit = 9;
 				break;
+			default:
+				return digit;
 		}
 			return digit; 
+	}
+	
+	private static int sumOfOddPlace(long num) {
+		String str = String.valueOf(num);
+		int sum = 0;
+		
+		for (int i = str.length() - 1; i < -1; i -= 2) {
+			char c = str.charAt(i);
+			sum += Character.getNumericValue(c);
+		}
+		return sum; 
 	}
 }

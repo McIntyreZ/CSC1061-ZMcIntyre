@@ -1,5 +1,5 @@
 
-public class Animal {
+public abstract class Animal {
 	// Data Members
 	private String name;
 	private int age;
@@ -38,6 +38,8 @@ public class Animal {
 	public void setWeight(double weight) {
 		this.weight = weight;
 	}
+	
+	public abstract String makeSound();
 	
 	@Override
 	public String toString() {

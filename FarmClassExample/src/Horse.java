@@ -22,5 +22,12 @@ public class Horse extends Animal{
 		this.coat = coat;
 	}
 	
+	@Override
+	public String makeSound() {
+		return "Neigh! Neigh!";
+	}
+	
+	
+	
 	
 }

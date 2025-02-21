@@ -1,6 +1,8 @@
 
 public class FIAbstract {
-	
+	private String fiId;
+	private String 
+	private 
 	
 	@Override
 	public int compareTo(FIAbstract fi) {
@@ -12,4 +14,15 @@ public class FIAbstract {
 		}
 		return 0; 
 	}
+	
+	@Override
+	public FIAbstract clone() throws CloneNotSupportedException {
+		FIAbstract clone = (FIAbstract) super.clone(); 
+		clone.address = address.clone();
+		return clone();
+	}
+	
+	@Override
+	
+	
 }

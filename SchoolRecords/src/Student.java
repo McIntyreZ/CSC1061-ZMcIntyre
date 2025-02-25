@@ -30,7 +30,6 @@ public class Student extends Person{
 	// Other methods 
 	/**
 	 * Method returns a string with all data members to be printed to file
-	 * @author Zachary McIntyre 
 	 */
 	public String getInfo() {
 		return "Student\t" + super.getName() + "\t" + super.getAddress() + "\t" 

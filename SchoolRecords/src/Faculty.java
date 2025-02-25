@@ -1,4 +1,7 @@
-
+/**
+ * Class for Faculty object 
+ * @author Zachary McIntyre 
+ */
 public class Faculty extends Employee {
 	private String officeHours;
 	private String rank; // Junior or Senior 
@@ -36,6 +39,9 @@ public class Faculty extends Employee {
 	}
 
 	// Other methods 
+	/**
+	 * Method returns a string with all data members to be printed to file
+	 */
 	@Override
 	public String getInfo() {
 		return "Faculty\t" + super.getName() + "\t" + super.getAddress() + "\t" 

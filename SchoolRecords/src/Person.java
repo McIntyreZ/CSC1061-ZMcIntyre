@@ -61,7 +61,6 @@ public class Person {
 	// Other methods 
 	/**
 	 * Method returns a string with all data members to be printed to file
-	 * @author Zachary McIntyre 
 	 */
 	public String getInfo() {
 		return "Person\t" + name + "\t" + address + "\t" + emailAddress + "\t" + 

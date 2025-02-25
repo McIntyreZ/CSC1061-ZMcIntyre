@@ -1,4 +1,7 @@
-
+/**
+ * Class for Employee object 
+ * @author Zachary McIntyre 
+ */
 public class Employee extends Person{
 	private String office;
 	private String salary;
@@ -45,15 +48,18 @@ public class Employee extends Person{
 		this.dateHired = dateHired;
 	}
 	
+	/**
+	 * Method returns a string with all data members to be printed to file
+	 */
+	public String getInfo() {
+		return "Student\t" + super.getName() + "\t" + super.getAddress() + "\t" 
+				+ super.getEmailAddress() + "\t" + super.getPhoneNum() + "\t" + 
+				office + "\t" + salary + "\t" + dateHired;
+	}
+	
 	@Override
 	public String toString() {
 		return super.toString() + "of type Employee [office=" + office + ", salary=" 
 				+ salary + ", dateHired=" + dateHired + "]";
 	}
-	// TODO give all classes javadoc notation:
-	/**
-	 * Method returns a string with all data members to be printed to file
-	 * @author Zachary McIntyre 
-	 */
-	// and finish regular commentation 
 }

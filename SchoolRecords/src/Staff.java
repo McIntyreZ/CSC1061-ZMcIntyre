@@ -1,4 +1,7 @@
-
+/**
+ * Class for Staff object 
+ * @author Zachary McIntyre 
+ */
 public class Staff extends Employee {
 	private String title;
 
@@ -24,6 +27,9 @@ public class Staff extends Employee {
 	}
 
 	// Other methods 
+	/**
+	 * Method returns a string with all data members to be printed to file
+	 */
 	@Override
 	public String getInfo() {
 		return "Staff\t" + super.getName() + "\t" + super.getAddress() + "\t" 

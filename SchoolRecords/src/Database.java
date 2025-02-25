@@ -1,3 +1,7 @@
+/**
+ * Class runs and uses the File and ArrayList
+ * @author Zachary McIntyre 
+ */
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,6 +15,10 @@ public class Database {
 	File file = new File(fileName); 
 	PrintWriter pw = null; 
 	
+	/**
+	 * Method creates and initializes File and PrintWriter 
+	 * @throws throws Exception 
+	 */
 	public Database() throws Exception {
 		try {
 			if (!file.exists()) {
@@ -30,6 +38,10 @@ public class Database {
 		}
 	}
 	
+	/**
+	 * Method takes object input and writes all the information to a tsv file 
+	 * @param the person object that will be written 
+	 */
 	public void writePerson(Person person) {
 				
 		if (person instanceof Student) {
@@ -47,6 +59,9 @@ public class Database {
 		pw.flush();
 	}
 	
+	/**
+	 * Method reads tsv File and stores data in an ArrayList; method returns the ArrayList 
+	 */
 	public ArrayList<Person> readDatabase() {
 		String temp = null; 
 		ArrayList<Person> list = new ArrayList<>();

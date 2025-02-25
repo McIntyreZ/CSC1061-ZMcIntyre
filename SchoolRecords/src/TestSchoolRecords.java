@@ -1,11 +1,18 @@
 /**
- * Program demonstrates the use of an ArrayList and IO functions
+ * Driver class for program; Program demonstrates the use of an ArrayList and IO functions
  * @author Zachary McIntyre 
  */
 import java.util.ArrayList;
 
+/**
+ * The program will use ArrayLists and a File to store data
+ */
 public class TestSchoolRecords {
 
+	/**
+	 * All program functions begin in main()
+	 * @param command line input 
+	 */
 	public static void main(String[] args) {
 		
 		/**

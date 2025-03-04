@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class BarModel implements Comparable {
+public class BarModel implements Comparable<BarModel> {
 	private String processor;
 	private int cache;
 	private int storage; 

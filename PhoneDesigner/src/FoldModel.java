@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class FoldModel implements Comparable {
+public class FoldModel implements Comparable<FoldModel> {
 	private String processor;
 	private int cache;
 	private int storage; 

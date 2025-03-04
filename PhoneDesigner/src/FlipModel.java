@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class FlipModel implements Comparable {
+public class FlipModel implements Comparable<FlipModel> {
 	private String processor;
 	private int cache;
 	private int storage; 

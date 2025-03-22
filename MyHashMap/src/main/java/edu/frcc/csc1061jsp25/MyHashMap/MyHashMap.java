@@ -1,6 +1,8 @@
 package edu.frcc.csc1061jsp25.MyHashMap;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +12,7 @@ public class MyHashMap <K,V> implements Map<K,V> {
 	private static final int INITIAL_NUM_BUCKETS = 4; 
 	private static final double LOAD_FACTOR_THRESHOLD = 0.5;
 	
-	private List<Entry<K,V>>[] buckets;
+	private LinkedList<Entry<K,V>>[] buckets;
 	private int size = 0; 
 	
 	private class Entry<K,V> implements Map.Entry<K,V> {
@@ -57,18 +59,36 @@ public class MyHashMap <K,V> implements Map<K,V> {
 
 	@Override
 	public boolean containsKey(Object key) {
-		
+		if (get(key) != null) {
+			return true;
+		}
+		return false; 
 	}
 
 	@Override
 	public boolean containsValue(Object value) {
-		// TODO Auto-generated method stub
+		for (int i = 0; i < buckets.length; ++i) {
+			if (buckets[i] != null) {
+				LinkedList<Entry<K,V>> bucket = buckets[i];
+				for (Entry<K,V> entry : bucket) {
+					if (entry.getValue().equals(value)) {
+						return true; 
+					}
+				}
+			}
+		}
 		return false;
 	}
 
 	@Override
 	public V get(Object key) {
-		// TODO Auto-generated method stub
+		int bucketIndex = Math.abs(key.hashCode()) % buckets.length;
+		LinkedList<Entry<K,V>> bucket = buckets[bucketIndex]; 
+		for (Entry<K,V> entry : bucket) {
+			if (entry.getKey().equals(key)) {
+				return entry.getValue(); 
+			}
+		}
 		return null;
 	}
 
@@ -102,6 +122,10 @@ public class MyHashMap <K,V> implements Map<K,V> {
 
 	// public void rehash(){}
 	
+	public int getNumBuckets() {
+		return buckets.length; 
+	}
+	
 	@Override
 	public V remove(Object key) {
 		int bucketIndex = Math.abs(key.hashCode()) % buckets.length; 
@@ -115,42 +139,74 @@ public class MyHashMap <K,V> implements Map<K,V> {
 				}
 			}
 			V oldVal = buckets[bucketIndex].get(listIndex).value;
-			buckets[bucketIndex].remove(buckets[bucketIndex].get(listIndex); 
+			buckets[bucketIndex].remove(buckets[bucketIndex].get(listIndex)); 
 			size--; 
-			return val;
-			return null;
+			return oldVal;
 		}
 		return null;
 	}
 
 	@Override
-	public void putAll(Map<? extends K, ? extends V> m) {
-		// TODO Auto-generated method stub
-		
+	public void putAll(Map<? extends K, ? extends V> otherMap) {
+	
+		for (int i = 0; i < otherMap.size(); i++) {
+			Set<? extends Map.Entry<? extends K, ? extends V>> entries = otherMap.entrySet(); 
+			for (Map.Entry<? extends K, ? extends V> entry: entries) {
+				put(entry.getKey(), entry.getValue());
+			}
+		}
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		for (LinkedList<Entry<K,V>> bucket: buckets) {
+			bucket = null; 
+		}
 	}
 
 	@Override
 	public Set<K> keySet() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<K> keySet = new HashSet<K>(); 
+		
+		for (int i = 0; i < buckets.length; ++i) {
+			if (buckets[i] != null) {
+				LinkedList<Entry<K,V>> bucket = buckets[i];
+				for (Entry<K,V> entry : bucket) {
+					keySet.add(entry.getKey()); 
+				}
+			}
+		}
+		return keySet; 
 	}
 
 	@Override
 	public Collection<V> values() {
-		// TODO Auto-generated method stub
-		return null;
+		Collection<V> collection = new ArrayList<V>();
+		
+		for (int i = 0; i < buckets.length; ++i) {
+			if (buckets[i] != null) {
+				LinkedList<Entry<K,V>> bucket = buckets[i]; 
+				for (Entry<K,V> entry : bucket) {
+					collection.add(entry.getValue());
+				}
+			}
+		}
+		return collection; 	
 	}
 
 	@Override
 	public Set<java.util.Map.Entry<K, V>> entrySet() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<Map.Entry<K, V>> set = new HashSet<Map.Entry<K, V>>();
+		
+		for (int i = 0; i < buckets.length; ++i) {
+			if (buckets[i] != null) {
+				LinkedList<Entry<K,V>> bucket = buckets[i];
+				for (Entry<K,V> entry : bucket) {
+					set.add(entry); 
+				}
+			}
+		}
+		return set; 
 	}
 	
 	

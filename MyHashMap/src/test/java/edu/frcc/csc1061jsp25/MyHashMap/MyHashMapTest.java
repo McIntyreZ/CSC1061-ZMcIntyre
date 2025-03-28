@@ -31,7 +31,4 @@ public class MyHashMapTest {
 		}
 		System.out.println(); 
 	}
-	
-
-
 }

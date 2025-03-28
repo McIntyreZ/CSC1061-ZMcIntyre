@@ -5,6 +5,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import edu.frcc.csc1061jsp25.ArrayAndLinkedList.MyLinkedList.MyIterator;
+import edu.frcc.csc1061jsp25.ArrayAndLinkedList.MyLinkedList.Node;
+
 public class MyDoublyLinkedList<E> implements List<E>{
 
 	private Node head; 
@@ -20,6 +23,10 @@ public class MyDoublyLinkedList<E> implements List<E>{
 			this.data = data;
 			next = null; 
 			prev = null;
+		}
+
+		public Node getNext() {
+			return next;
 		}
 	}
 	
@@ -54,9 +61,30 @@ public class MyDoublyLinkedList<E> implements List<E>{
 	}
 
 	@Override
-	public Iterator<E> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+	public Iterator<E> iterator() { 
+		return new MyIterator();
+	}
+	
+	private class MyIterator implements Iterator<E> {
+		Node currNode = head; 
+		@Override
+		public boolean hasNext() {
+			if (!(currNode == null)) {
+				return true; 
+			}
+			return false;
+		}
+
+		@Override
+		public E next() {
+			if (currNode.next != null) {
+				E element = currNode.data;
+				currNode = currNode.next; 
+				return element;
+			}
+			throw new NullPointerException(); 
+		}
+		
 	}
 
 	@Override

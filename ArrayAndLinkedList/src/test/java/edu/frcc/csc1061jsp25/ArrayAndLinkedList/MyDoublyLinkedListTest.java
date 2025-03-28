@@ -5,16 +5,27 @@ import com.sun.tools.javac.util.List;
 public class MyDoublyLinkedListTest {
 
 	public static void main(String[] args) {
-		List<Integer> m1 = new MyDoublyLinkedList<>();
+		List<Integer> ml = new MyDoublyLinkedList<>();
 		
-		m1.add(1);
-		m1.add(2);
-		m1.add(3);
-		m1.add(4);
-		m1.add(5);
-		m1.add(6);
-
-		for ()
+		ml.add(1);
+		ml.add(2);
+		ml.add(3);
+		ml.add(4);
+		ml.add(5);
+		ml.add(6);
+		
+		for (int i = 0; i < ml.size(); i++) {
+			int num = ml.get(i);
+			System.out.print(num + " ");
+		}
+		System.out.println();
+		
+		for (Integer num: ml) {
+			System.out.print(num + " "); 
+		}
+		System.out.println();
+		
+		
 	}
 
 }

@@ -48,9 +48,30 @@ public class MyLinkedList<E> implements List<E>{
 	}
 
 	@Override
-	public Iterator<E> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+	public Iterator<E> iterator() { 
+		return new MyIterator();
+	}
+	
+	private class MyIterator implements Iterator<E> {
+		Node currNode = head; 
+		@Override
+		public boolean hasNext() {
+			if (!(currNode == null)) {
+				return true; 
+			}
+			return false;
+		}
+
+		@Override
+		public E next() {
+			if (currNode.next != null) {
+				E element = currNode.data; 
+				currNode = currNode.next; 
+				return element;
+			}
+			throw new NullPointerException(); 
+		}
+		
 	}
 
 	@Override

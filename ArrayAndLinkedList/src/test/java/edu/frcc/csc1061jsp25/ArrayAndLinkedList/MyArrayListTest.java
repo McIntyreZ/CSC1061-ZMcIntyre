@@ -20,6 +20,11 @@ public class MyArrayListTest {
 		}
 		System.out.println();
 		
+		for (Integer num: ml) {
+			System.out.print(num + " "); 
+		}
+		System.out.println();
+		
 		ml.remove(3);
 		
 		for (int i = 0; i < ml.size(); i++) {
@@ -27,6 +32,11 @@ public class MyArrayListTest {
 			System.out.print(num + " ");
 		}
 		System.out.println();
+		
+		for (int num : ml) {
+			System.out.print(num); 
+		}
+		System.out.println(); 
 	}
 
 }

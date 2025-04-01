@@ -9,16 +9,20 @@ import java.util.Map;
 import java.util.Set;
 
 public class MyHashMap <K,V> implements Map<K,V> {
+	// Constants 
 	private static final int INITIAL_NUM_BUCKETS = 4; 
-	private static final double LOAD_FACTOR_THRESHOLD = 0.5;
-	
+	private static final double LOAD_FACTOR_THRESHOLD = 0.5; // Ensures as few 
+															 // Collisions as possible
+	// Array of linked lists 
 	private LinkedList<Entry<K,V>>[] buckets;
 	private int size = 0; 
 	
+	// Entry is the node that is stored in the linked list 
 	private class Entry<K,V> implements Map.Entry<K,V> {
-		K key; 
-		V value; 
+		K key;   // Used to find the value
+		V value; // The data itself 
 		
+		// Constructor 
 		public Entry(K key, V value) {
 			this.key = key;
 			this.value = value; 
@@ -43,6 +47,7 @@ public class MyHashMap <K,V> implements Map<K,V> {
 	}
 	
 	// Constructor
+	@SuppressWarnings("unchecked")
 	public MyHashMap() {
 		buckets = new LinkedList[INITIAL_NUM_BUCKETS]; 
 	}
@@ -58,7 +63,7 @@ public class MyHashMap <K,V> implements Map<K,V> {
 	}
 
 	@Override
-	public boolean containsKey(Object key) {
+	public boolean containsKey(Object key) { // Checks if the key is used 
 		if (get(key) != null) {
 			return true;
 		}
@@ -66,7 +71,7 @@ public class MyHashMap <K,V> implements Map<K,V> {
 	}
 
 	@Override
-	public boolean containsValue(Object value) {
+	public boolean containsValue(Object value) { // Parses list for the value 
 		for (int i = 0; i < buckets.length; ++i) {
 			if (buckets[i] != null) {
 				LinkedList<Entry<K,V>> bucket = buckets[i];
@@ -80,6 +85,7 @@ public class MyHashMap <K,V> implements Map<K,V> {
 		return false;
 	}
 
+	// Uses key to retrieve an object 
 	@Override
 	public V get(Object key) {
 		int bucketIndex = Math.abs(key.hashCode()) % buckets.length;
@@ -89,13 +95,14 @@ public class MyHashMap <K,V> implements Map<K,V> {
 				return entry.getValue(); 
 			}
 		}
-		return null;
+		return null;  
 	}
 
+	// Equivalent to an add method 
 	@Override
 	public V put(K key, V value) {
 		int bucketIndex = Math.abs(key.hashCode()) % buckets.length; 
-		
+		// Initialization of list if necessary 
 		if (buckets[bucketIndex] == null) {
 			buckets[bucketIndex] = new LinkedList<Entry<K,V>>();
 		}
@@ -109,10 +116,7 @@ public class MyHashMap <K,V> implements Map<K,V> {
 			}
 		}
 		
-		// Check load factor 
-		// Load factor = num entries in map / number of buckets 
-		// int loadFactor = 
-		// if (loadFactor > LOAD_FACTOR_THRESHOLD) rehash();
+		// Checks the load factor to minimize collisions 
 		if (size == LOAD_FACTOR_THRESHOLD) {
 			this.rehash(); 
 		}
@@ -123,24 +127,22 @@ public class MyHashMap <K,V> implements Map<K,V> {
 		return null; 
 	}
 
+	// If there are too many elements in the map and collisions are more likely;
+	// The program will create a new hashmap, with bigger size and reallocate the 
+	// Elements 
 	private void rehash(){
+		// New array with double the size as the old array 
 		LinkedList<Entry<K,V>>[] newArray = new LinkedList[buckets.length * 2]; 
-		int newArraySize = 0; 
 		int index = -1; 
 		
+		// Actual reallocation of the elements 
 		for (int i = 0; i < buckets.length; i++) { 
-			for (Entry<K, V> entry : buckets[i]) {
+			for (Entry<K, V> entry : buckets[i]) { 
 				index = entry.getKey().hashCode() % newArray.length; 
 				if (buckets[index] == null) {
 					buckets[index] = new LinkedList<Entry<K,V>>();
 				}
-//				if (newArray[index] != null) {
-//					newArray[index].add(entry);
-//				}
-//				else {
-//					newArray[index].add(entry); 
-//				}
-				// TODO: check if this needs to be done
+
 				newArray[index].add(entry); 
 			}
 		buckets = newArray; 
@@ -151,6 +153,7 @@ public class MyHashMap <K,V> implements Map<K,V> {
 		return buckets.length; 
 	}
 	
+	// Removes the Entry if the key points to anything 
 	@Override
 	public V remove(Object key) {
 		int bucketIndex = Math.abs(key.hashCode()) % buckets.length; 
@@ -171,6 +174,7 @@ public class MyHashMap <K,V> implements Map<K,V> {
 		return null;
 	}
 
+	// Adds all the elements of one list to another 
 	@Override
 	public void putAll(Map<? extends K, ? extends V> otherMap) {
 	
@@ -182,13 +186,15 @@ public class MyHashMap <K,V> implements Map<K,V> {
 		}
 	}
 
+	// Deletes all elements in the map 
 	@Override
 	public void clear() {
 		for (LinkedList<Entry<K,V>> bucket: buckets) {
 			bucket = null; 
 		}
 	}
-
+	
+	// Returns a set of keys 
 	@Override
 	public Set<K> keySet() {
 		Set<K> keySet = new HashSet<K>(); 
@@ -204,6 +210,7 @@ public class MyHashMap <K,V> implements Map<K,V> {
 		return keySet; 
 	}
 
+	// Returns a Collection of values 
 	@Override
 	public Collection<V> values() {
 		Collection<V> collection = new ArrayList<V>();
@@ -218,7 +225,7 @@ public class MyHashMap <K,V> implements Map<K,V> {
 		}
 		return collection; 	
 	}
-
+	
 	@Override
 	public Set<java.util.Map.Entry<K, V>> entrySet() {
 		Set<Map.Entry<K, V>> set = new HashSet<Map.Entry<K, V>>();

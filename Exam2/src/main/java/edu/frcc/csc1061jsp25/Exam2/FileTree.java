@@ -2,9 +2,12 @@ package edu.frcc.csc1061jsp25.Exam2;
 
 import java.io.File;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Iterator;
 import java.util.Queue;
+
+import edu.frcc.csc1061jsp25.MyBookTree.BookNode;
 
 
 
@@ -37,8 +40,18 @@ public class FileTree implements Iterable <FileNode> {
 	 * @param fileNode
 	 */
 	private void buildTree(FileNode fileNode) {
-
-	
+		if (fileNode.getFile().listFiles()[0] == null) {
+			return; 
+		}
+		else {
+			ArrayList<FileNode> temp = fileNode.getChildNodes();
+			for (int i = 0; i < fileNode.getFile().listFiles().length; i++) {
+				FileNode newNode = new FileNode(fileNode.getFile().listFiles()[i]);
+				buildTree(newNode);   
+				temp.add(newNode); 
+			}
+			fileNode.setChildNodes(temp);
+		}
 	}
 	
 	/**
@@ -50,19 +63,26 @@ public class FileTree implements Iterable <FileNode> {
 	 * @return 
 	 */
 	private class DepthFirstIterator implements Iterator<FileNode> {
-		
+		Deque<FileNode> queue = new ArrayDeque<>();
 		public DepthFirstIterator() {
-
+			postOrder(root); 
 		}
 
+		private void postOrder(FileNode node) {
+			for(FileNode child : node.getChildNodes()) {
+				postOrder(child); 
+			}
+			queue.addLast(node); 
+		}
+		
 		@Override
 		public boolean hasNext() {
-			return true;
+			return !queue.isEmpty();
 		}
 		
 		@Override
 		public FileNode next() {
-			return null;
+			return queue.removeFirst();
 		}
 	}
 	
@@ -83,9 +103,37 @@ public class FileTree implements Iterable <FileNode> {
 	 * 
 	 */
 	private class BreadthFirstIterator implements Iterator<FileNode> {
+		FileNode parentNode = null; 
 		
 		public BreadthFirstIterator() {
-
+			System.out.println(root); 
+			breadthFirst(root, 1); 
+		}
+		
+		private void breadthFirst(FileNode node, int count){
+			
+			for (int k = 0; k < count; k++){
+				for (int i = 0; i < node.getChildNodes().size(); i++) {
+					System.out.println(node.getChildNodes().get(i)); 
+				}
+			}
+			
+			
+			
+			
+			
+			
+			
+			if (node.getChildNodes().size() != 0) {
+				for (FileNode child : node.getChildNodes()) {
+					System.out.println(child); 
+				}
+				for (FileNode child : node.getChildNodes()) {
+					breadthFirst(child); 
+				}
+			}
+			
+			parentNode = node; 
 		}
 		
 		@Override

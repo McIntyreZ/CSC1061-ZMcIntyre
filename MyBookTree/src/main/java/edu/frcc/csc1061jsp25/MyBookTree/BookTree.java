@@ -57,12 +57,58 @@ public class BookTree implements Iterable<BookNode>{
 
 	@Override
 	public Iterator<BookNode> iterator() {
-		return new BookNodeIterator(root);
+		return new RecursiveIterator(root);
 	}
 	
+	// Pre order traversal of the tree 
+	private class RecursiveIterator implements Iterator<BookNode> {
+		Deque<BookNode> queue = new ArrayDeque<>(); 
+		
+		public RecursiveIterator(BookNode node) {
+			preorder(node); 
+		}
+		
+		private void preorder(BookNode node) {
+			
+			queue.addLast(node);
+//			if (node.getChildNodes() == null || node.getChildNodes().isEmpty()) { // Failsafe base case if for each loop doesn't behave as intended
+//				
+//				return; 
+//			}
+			for(BookNode child : node.getChildNodes()) {
+				preorder(child); 
+			}
+		}
+		
+		// Post order traversal of the tree
+//		private void postorder(BookNode node) {
+//			
+//			// Preorder traversal has queue.addLast(node) here 
+//			// if (node.getChildNodes() == null || node.getChildNodes().isEmpty()) { // Failsafe base case if for each loop doesn't behave as intended
+//				
+//				// return; 
+//			// }
+//			for(BookNode child : node.getChildNodes()) {
+//				postorder(child); 
+//			}
+//			queue.addLast(node); // Only difference is this line is at end instead of beginning of method
+//		}
+		
+		@Override
+		public boolean hasNext() {
+			return !queue.isEmpty(); 
+		}
+
+		@Override
+		public BookNode next() {
+			return queue.removeFirst(); 
+		}
+		
+	}
+
 	private class BookNodeIterator implements Iterator<BookNode> {
 		Deque<BookNode> stack;
-		
+	
 		public BookNodeIterator(BookNode node) {
 			stack = new ArrayDeque<>(); 
 			stack.push(node); 

@@ -8,7 +8,7 @@ public class FileSizeFinder {
 	public static void main(String[] args) {
 
 		String filePath = "C:\\Users\\zacha\\Downloads\\FileSizeTest\\FileSizeTest";
-		
+
 		File file = new File(filePath);
 		
 		if (!file.exists()) {

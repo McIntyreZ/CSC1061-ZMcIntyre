@@ -2,6 +2,7 @@ package edu.frcc.csc1061jsp25.MyTreeMapPlaceholder;
 
 import java.util.ArrayDeque;
 import java.util.Collection;
+import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -150,7 +151,38 @@ public class MyTreeMap<K,V> implements Map<K,V>, Iterable<V> {
 		@Override
 		public Iterator<V> iterator() {
 			
-			return new RecursiveIterator();
+			return new NonRecursiveIterator();
+		}
+		
+		private class NonRecursiveIterator implements Iterator<V> {
+			private Deque<Node> stack = new ArrayDeque<>();
+			
+			public NonRecursiveIterator() {
+				pushOnStack(root); 
+				
+			}
+			
+			public void pushOnStack(Node node) {
+				Node current = node; 
+				while (current != null) {
+					stack.push(current);
+					current = current.left; 
+				}
+			}
+
+			@Override
+			public boolean hasNext() {
+				return !stack.isEmpty();
+			}
+
+			@Override
+			public V next() {
+				Node node = stack.pop(); 
+				V value = node.value;
+				pushOnStack(node.right);
+				return value; 
+			}
+			
 		}
 		
 		private class RecursiveIterator implements Iterator<V> {

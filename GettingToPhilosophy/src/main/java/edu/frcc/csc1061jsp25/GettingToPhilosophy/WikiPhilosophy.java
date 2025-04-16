@@ -42,7 +42,7 @@ public class WikiPhilosophy {
         while (true) { // Will loop until user quits 
         	System.out.println("Enter a wikipedia link (type \"quit\" to quit): ");
         	source = scnr.nextLine(); 
-        	// if statement ensures there is no small difference for quitting 
+        	// If statement ensures there is no small difference for quitting 
             if (source.toLowerCase().replaceAll(" ", "").equals("quit")) {
             	break; 
             }

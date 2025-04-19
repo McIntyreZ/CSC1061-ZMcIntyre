@@ -112,9 +112,94 @@ public class MyTreeMap<K,V> implements Map<K,V>, Iterable<V> {
 		}
 
 		// Homework
+		// Method takes a key and removes the node associated with that key 
 		@Override
 		public V remove(Object key) {
+			if (this.containsKey(key)) { // Makes sure 1) the tree is not null 2) the 
+				Node pNode = null;								// value is in the tree
+				Node currNode = getNode(key);
+				V value = currNode.value;
+				// If node does not have children
+				if (currNode.left == null && currNode.right == null) {
+					pNode = getPNode(key);
+					if (pNode.left == currNode) {
+						pNode.left = null;
+					}
+					else {
+						pNode.right = null;
+					}
+				}
+				// If the node has 2 children
+				else if (currNode.left != null && currNode.right != null) {
+					Node child = currNode.left; // Getting the in order predecessor 
+					while (child.right != null) {
+						child = child.right;
+					}
+					
+					currNode.value = child.value; 
+					remove(child.key); // Node in recursive call will only have 0 or 1 children
+					currNode.key = child.key; // Changing the key so it can be found in the future
 
+				}
+				// If the node only has 1 child
+				else {
+					if (currNode.left == null) {
+						currNode.key = currNode.right.key;
+						currNode.value = currNode.right.value; 
+						currNode.right = null; 
+					}
+					else {
+						currNode.key = currNode.left.key;
+						currNode.value = currNode.left.value; 
+						currNode.left = null; 
+					}
+				}
+				return value; 
+			}
+			return null;
+		}
+		
+		// Similar to getNode; takes key and retrieves a node's parent node
+		public Node getPNode(Object key) {
+			Node current = root;
+			Comparable<K> k = (Comparable<K>) key;
+			// Using the key, finds the node through binary search 
+			while(current != null) {
+				// Exit conditions
+				if (current.left != null && current.left.key == key) {
+					return current;
+				}
+				else if (current.right != null && current.right.key == key) { // Exit conditions
+					return current;
+				}
+				// Continue searching
+				if (k.compareTo(current.key) < 0) {
+					current = current.left;
+				}
+				else if (k.compareTo(current.key) > 0) {
+					current = current.right;
+				}
+				
+			}
+			return null;
+		}
+		
+		// Takes a key and finds the node paired with the key
+		public Node getNode(Object key) {
+			Node current = root;
+			Comparable<K> k = (Comparable<K>) key;
+			
+			while(current != null) {
+				if (k.compareTo(current.key) < 0) {
+					current = current.left;
+				}
+				else if (k.compareTo(current.key) > 0) {
+					current = current.right;
+				}
+				else { // Otherwise the current key is equal to the destination key
+					return current;
+				}
+			}
 			return null;
 		}
 

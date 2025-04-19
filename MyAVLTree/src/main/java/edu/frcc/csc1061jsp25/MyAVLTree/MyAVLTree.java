@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-public class MyAVLTree<K,V> implements Map<K,V>, Iterable<V> {
+public class MyAVLTree<K,V> implements Map<K,V>, Iterable<edu.frcc.csc1061jsp25.MyAVLTree.MyAVLTree.Node> {
 	
 		private Node root = null;
 		private int size = 0;
@@ -284,13 +284,10 @@ public class MyAVLTree<K,V> implements Map<K,V>, Iterable<V> {
 			}
 			
 			updateHeight(newNode); 
+			balancePath(); 
 			size++;
 		
 			return null;
-		}
-
-		private void updateHeight(Node node) {
-			
 		}
 		
 		@Override
@@ -335,7 +332,7 @@ public class MyAVLTree<K,V> implements Map<K,V>, Iterable<V> {
 			return new NonRecursiveIterator();
 		}
 		
-		private class NonRecursiveIterator implements Iterator<V> {
+		private class NonRecursiveIterator implements Iterator<edu.frcc.csc1061jsp25.MyAVLTree.MyAVLTree.Node> {
 			private Deque<Node> stack = new ArrayDeque<>();
 			
 			public NonRecursiveIterator() {

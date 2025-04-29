@@ -142,4 +142,10 @@ public class MyGraph<E> {
 			System.out.println(); 
 		}
 	}
+	
+	// DFS homework
+	public List<Vertex> dfs(Vertex root){
+		//ONly so program doesn't derail
+		return null; 
+	}
 }

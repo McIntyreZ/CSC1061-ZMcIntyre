@@ -33,8 +33,8 @@ public class GraphTest {
 		System.out.println("bfs of graph"); 
 		System.out.println(graph.bfs(graph.vertices.getFirst()));
 		
-//		System.out.println("Minimum Spanning Tree:");
-//		graph.findMinimumSpanningTree().printEdges();		
+		System.out.println("Minimum Spanning Tree:");
+		graph.findMinimumSpanningTree().printEdges();		
 	}
 
 

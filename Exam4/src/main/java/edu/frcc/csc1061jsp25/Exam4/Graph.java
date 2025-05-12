@@ -196,7 +196,41 @@ public class Graph<E> {
 	** The spanning tree will be a new graph
 	*/
 	public Graph<E> findMinimumSpanningTree() {
+	
+		List<Vertex> minSpan = new ArrayList<>(); 
+		List<Edge> edgeList = new ArrayList<>(); 
+		List<Edge> minEdge = new ArrayList<>(); 
 		
-		return null;
+		for (Vertex vertex: vertices) {
+			for (Edge edge: vertex.neighbors) {
+				if (!edgeList.contains(edge)) {
+					edgeList.add(edge); 
+				}
+			}
+		}
+		// Now we have a list of all edges 
+		
+		// Assort list from least to greatest in relation to weight
+		Collections.sort(edgeList);
+		
+		// Assign the shortest edges first until vertices.size()-1 edges are added, 
+		for (int i = 0; i < edgeList.size(); i++) {
+			// if the minSpan doesnt already have the location in it 
+			// Maybe make your own find vertex method 
+			if (vertices.size() == (vertices.size() - 1)) {
+				Graph<E> minGraph = new Graph<>();
+				for (Edge edge: minEdge) {
+					minGraph.addEdge((Graph<E>.Edge) edge);
+				}
+				return minGraph; 
+			}
+			if (!minSpan.contains(edgeList.get(i).d)) {
+				minSpan.add(edgeList.get(i).d); 
+				minEdge.add(edgeList.get(i)); 
+			}
+		}
+		
+		Graph<Integer> minGraph = new Graph<>(vertices);
+		return minGraph;
 	}
 }

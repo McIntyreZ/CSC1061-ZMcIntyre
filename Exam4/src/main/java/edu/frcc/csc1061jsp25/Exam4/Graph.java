@@ -201,6 +201,8 @@ public class Graph<E> {
 		List<Edge> edgeList = new ArrayList<>(); 
 		List<Edge> minEdge = new ArrayList<>(); 
 		
+		Graph<E> minGraph = new Graph<E>(vertices);
+		
 		for (Vertex vertex: vertices) {
 			for (Edge edge: vertex.neighbors) {
 				if (!edgeList.contains(edge)) {
@@ -218,7 +220,7 @@ public class Graph<E> {
 			// if the minSpan doesnt already have the location in it 
 			// Maybe make your own find vertex method 
 			if (vertices.size() == (vertices.size() - 1)) {
-				Graph<E> minGraph = new Graph<>();
+//				Graph<E> minGraph = new Graph<>();
 				for (Edge edge: minEdge) {
 					minGraph.addEdge((Graph<E>.Edge) edge);
 				}
@@ -230,7 +232,7 @@ public class Graph<E> {
 			}
 		}
 		
-		Graph<Integer> minGraph = new Graph<>(vertices);
+//		Graph<Integer> minGraph = new Graph<>(vertices);
 		return minGraph;
 	}
 }

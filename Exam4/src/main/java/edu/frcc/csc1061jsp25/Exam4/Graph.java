@@ -234,14 +234,28 @@ public class Graph<E> {
 			if (i == 0) {
 				minGraph.addVertex(edgeList.get(0).s);
 			}
-			// check if the minGraph already has the vertex to prevent loops
+			// Check if the minGraph already has the vertex to prevent loops
 			if (!minGraph.dfs().contains(edgeList.get(i).d)) {
 				minGraph.addVertex(edgeList.get(i).d); 
+				// minGraph.addEdge(edgeList.get(i) did not successfully transfer edges
 				minEdge.add(edgeList.get(i)); 
 			}
+			// minEdge has duplicate edges with inverted sources/destinations because minGraph
+			// is a bidirectional tree
+			for (Vertex v: minGraph.vertices) {
+				if (v.equals(edgeList.get(i).s)) {
+					if (!v.neighbors.contains(edgeList.get(i))) {
+						if (v.neighbors.isEmpty()) {
+							v.neighbors.add(edgeList.get(i)); 
+						}
+					}
+				}
+			}
 		}
+		// minGraph has 
+		// because the graph has bidirectional edges 
 		
-		// Reminder, minEdge should only have the MST edges in it
+		// If minEdge only had all the MST edges in it
 		for (int i = 0; i < minEdge.size(); i++) {
 			minGraph.addEdge(minEdge.get(i));
 		}
@@ -258,23 +272,6 @@ public class Graph<E> {
 			}
 		}
 		
-		// These Sysout lines show that the MST has some data but not all data such as neighbors for 0, 4, 5
-		System.out.println(vertexCop.get(1).neighbors.get(0).s + ", " + vertexCop.get(1).neighbors.get(0).d +
-				", " + vertexCop.get(1).neighbors.get(0).weight);
-		System.out.println(vertexCop.get(2).neighbors.get(0).s + ", " + vertexCop.get(2).neighbors.get(0).d +
-				", " + vertexCop.get(2).neighbors.get(0).weight);
-		System.out.println(vertexCop.get(3).neighbors.get(0).s + ", " + vertexCop.get(3).neighbors.get(0).d +
-				", " + vertexCop.get(3).neighbors.get(0).weight); 
-		
-		
-		Graph<E> finGraph = new Graph<E>(vertexCop);
-		
-		return finGraph;
-	}
-	
-	private boolean addNeighbor(Edge edge) {
-		edge.s.neighbors.add(edge); 
-		edge.d.neighbors.add(edge); 
-		return true; 
-	}
+		return minGraph;
+	}	
 }

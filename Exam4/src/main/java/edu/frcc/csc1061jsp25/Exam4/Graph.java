@@ -242,34 +242,26 @@ public class Graph<E> {
 			}
 			// minEdge has duplicate edges with inverted sources/destinations because minGraph
 			// is a bidirectional tree
+			
+		}
+		// minGraph has only 1 edge for each vertex
+		// because the graph has bidirectional edges
+		for (Edge e: minEdge) {
 			for (Vertex v: minGraph.vertices) {
-				if (v.equals(edgeList.get(i).s)) {
-					if (!v.neighbors.contains(edgeList.get(i))) {
+				if (v.equals(e.s)) {
+					if (!v.neighbors.contains(e)) {
 						if (v.neighbors.isEmpty()) {
-							v.neighbors.add(edgeList.get(i)); 
+							v.neighbors.add(e); 
 						}
 					}
 				}
 			}
 		}
-		// minGraph has 
-		// because the graph has bidirectional edges 
+		
 		
 		// If minEdge only had all the MST edges in it
 		for (int i = 0; i < minEdge.size(); i++) {
 			minGraph.addEdge(minEdge.get(i));
-		}
-		
-		// minGraph.addEdge(minEdge.get(i)), in previous loop, did not transfer neighbors
-		for (Edge e: minEdge) {
-			for (Vertex v: vertexCop) {
-				if (e.s.equals(v)) {
-					v.neighbors = e.s.neighbors;
-				}
-				else if (e.d.equals(v)) {
-					v.neighbors = e.d.neighbors;
-				}
-			}
 		}
 		
 		return minGraph;

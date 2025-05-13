@@ -137,7 +137,8 @@ public class Graph<E> {
 	** or iteratively using a stack. It should return a list of all the 
 	** vertices in the pre-order depth-first traversal.
 	*/
-	public List<Vertex> dfs(Vertex root) {
+	public List<Vertex> dfs() {
+		Vertex root = vertices.get(0);
 		// Keeps track of what nodes need to be explored next
 		ArrayDeque<Vertex> stack = new ArrayDeque<>();
 		// List of vertices that have been visited; in dfs order
@@ -166,7 +167,8 @@ public class Graph<E> {
 	/* TODO: Implement the BFS algorithm for a graph. It should return a list 
 	** of all the vertices in the breadth-first traversal.
 	*/
-	public List<Vertex> bfs(Vertex root) {
+	public List<Vertex> bfs() {
+		Vertex root = vertices.get(0); 
 		// Holds the vertices yet to be visited
 		ArrayDeque<Vertex> queue = new ArrayDeque<>();
 		// Holds visited vertices in bfs 
@@ -218,14 +220,16 @@ public class Graph<E> {
 			}
 		}
 		
+		Graph<E> minGraph = new Graph<E>(minSpan);
+		
 		// Now we have a list of all edges 
 		
 		// Assort list from least to greatest in relation to weight
 		Collections.sort(edgeList);
 		
 		// Assign the shortest edges first until vertices.size()-1 edges are added, 
+		// if the minSpan doesnt already have the location in it 
 		for (int i = 0; i < edgeList.size(); i++) {
-			// if the minSpan doesnt already have the location in it 
 			if (i == 0) {
 				minSpan.add(edgeList.get(0).s);
 			}
@@ -236,7 +240,7 @@ public class Graph<E> {
 			}
 		}
 		
-		Graph<E> minGraph = new Graph<E>(vertexCop);
+		
 		
 		for (int i = 0; i < minEdge.size(); i++) {
 			minGraph.addEdge(minEdge.get(i));

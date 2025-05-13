@@ -243,7 +243,7 @@ public class Graph<E> {
 			// minEdge has duplicate edges with inverted sources/destinations because minGraph
 			// is a bidirectional tree
 		}
-		
+				
 		for (Edge e: minEdge) {
 			for (Vertex v: minGraph.vertices) {
 				if (v.equals(e.s)) {
@@ -252,25 +252,11 @@ public class Graph<E> {
 							v.neighbors.add(e); 
 						}
 					}
-				}
+				}	
 			}
 		}
 		// minGraph has only 1 edge for each vertex; a one directional MST
-		
-		// Create a copy of the vertices so that minGraph isn't being altered 
-		// while iterating through it; using vertexCop to avoid creating an  
-		// additional variable
-		vertexCop.clear();
-		for (int i = 0; i < minGraph.vertices.size(); i++) {
-			// Deep copy of vertices
-			vertexCop.add(minGraph.vertices.get(i)); 
-		}
-		
-		for (Vertex v: vertexCop) {
-			minGraph.findVertex(v.neighbors.get(0).d.elem).neighbors.add(v.neighbors.get(0));
-		}
-				
-		
+	
 		return minGraph;
 	}	
 }

@@ -193,7 +193,7 @@ public class Graph<E> {
 				}
 			}
 		}
-		// List is is bfs order 
+		// List is in bfs order 
 		return list;
 	}
 	
@@ -203,16 +203,16 @@ public class Graph<E> {
 	*/
 	public Graph<E> findMinimumSpanningTree() {
 	
-		List<Vertex> minSpan = new ArrayList<>(); 
 		List<Edge> edgeList = new ArrayList<>(); 
 		List<Edge> minEdge = new ArrayList<>(); 
 		List<Vertex> vertexCop = new ArrayList();
 		
+		// Deep copy of vertices to keep separate
 		for (Vertex vertex: vertices) {
 			Vertex v = new Vertex(vertex.elem);
 			vertexCop.add(v); 
 		}
-		
+		// Copy of edges 
 		for (int i = 0; i < vertexCop.size(); i++) {
 			for (int j = 0; j < vertices.get(i).neighbors.size(); j++) {
 				Edge e = new Edge(vertexCop.get((int) vertices.get(i).neighbors.get(j).s.elem), vertexCop.get((int) vertices.get(i).neighbors.get(j).d.elem), vertices.get(i).neighbors.get(j).weight);
@@ -220,7 +220,7 @@ public class Graph<E> {
 			}
 		}
 		
-		Graph<E> minGraph = new Graph<E>(minSpan);
+		Graph<E> minGraph = new Graph<E>(vertexCop);
 		
 		// Now we have a list of all edges 
 		
@@ -228,24 +228,25 @@ public class Graph<E> {
 		Collections.sort(edgeList);
 		
 		// Assign the shortest edges first until vertices.size()-1 edges are added, 
-		// if the minSpan doesnt already have the location in it 
+		// If the minSpan doesn't already have the location in it
 		for (int i = 0; i < edgeList.size(); i++) {
+			// The program wanted to add two copies of the same edge, since edges are bidirectional 
 			if (i == 0) {
-				minSpan.add(edgeList.get(0).s);
+				minGraph.addVertex(edgeList.get(0).s);
 			}
-			// check if the minSpan already has the vertex to prevent loops
-			if (!minSpan.contains(edgeList.get(i).d)) {
-				minSpan.add(edgeList.get(i).d); 
+			// check if the minGraph already has the vertex to prevent loops
+			if (!minGraph.dfs().contains(edgeList.get(i).d)) {
+				minGraph.addVertex(edgeList.get(i).d); 
 				minEdge.add(edgeList.get(i)); 
 			}
 		}
 		
-		
-		
+		// Reminder, minEdge should only have the MST edges in it
 		for (int i = 0; i < minEdge.size(); i++) {
 			minGraph.addEdge(minEdge.get(i));
 		}
 		
+		// minGraph.addEdge(minEdge.get(i)), in previous loop, did not transfer neighbors
 		for (Edge e: minEdge) {
 			for (Vertex v: vertexCop) {
 				if (e.s.equals(v)) {

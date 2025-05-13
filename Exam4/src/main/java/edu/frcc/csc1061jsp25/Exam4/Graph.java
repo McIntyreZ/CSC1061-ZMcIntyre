@@ -12,7 +12,7 @@ public class Graph<E> {
 	
 	class Vertex {
 		private E elem;
-		private List<Edge> neighbors = new ArrayList<>();
+		public List<Edge> neighbors = new ArrayList<>();
 		
 		public Vertex (E elem) {
 			this.elem = elem;
@@ -20,6 +20,10 @@ public class Graph<E> {
 
 		public E getKey() {
 			return elem;
+		}
+		
+		public List<Edge> getNeighbors(){
+			return neighbors;  
 		}
 		
 		@Override
@@ -200,16 +204,20 @@ public class Graph<E> {
 		List<Vertex> minSpan = new ArrayList<>(); 
 		List<Edge> edgeList = new ArrayList<>(); 
 		List<Edge> minEdge = new ArrayList<>(); 
-		
-		Graph<E> minGraph = new Graph<E>(vertices);
+		List<Vertex> vertexCop = new ArrayList();
 		
 		for (Vertex vertex: vertices) {
-			for (Edge edge: vertex.neighbors) {
-				if (!edgeList.contains(edge)) {
-					edgeList.add(edge); 
-				}
+			Vertex v = new Vertex(vertex.elem);
+			vertexCop.add(v); 
+		}
+		
+		for (int i = 0; i < vertexCop.size(); i++) {
+			for (int j = 0; j < vertices.get(i).neighbors.size(); j++) {
+				Edge e = new Edge(vertexCop.get((int) vertices.get(i).neighbors.get(j).s.elem), vertexCop.get((int) vertices.get(i).neighbors.get(j).d.elem), vertices.get(i).neighbors.get(j).weight);
+				edgeList.add(e); 
 			}
 		}
+		
 		// Now we have a list of all edges 
 		
 		// Assort list from least to greatest in relation to weight
@@ -218,21 +226,50 @@ public class Graph<E> {
 		// Assign the shortest edges first until vertices.size()-1 edges are added, 
 		for (int i = 0; i < edgeList.size(); i++) {
 			// if the minSpan doesnt already have the location in it 
-			// Maybe make your own find vertex method 
-			if (vertices.size() == (vertices.size() - 1)) {
-//				Graph<E> minGraph = new Graph<>();
-				for (Edge edge: minEdge) {
-					minGraph.addEdge((Graph<E>.Edge) edge);
-				}
-				return minGraph; 
+			if (i == 0) {
+				minSpan.add(edgeList.get(0).s);
 			}
+			// check if the minSpan already has the vertex to prevent loops
 			if (!minSpan.contains(edgeList.get(i).d)) {
 				minSpan.add(edgeList.get(i).d); 
 				minEdge.add(edgeList.get(i)); 
 			}
 		}
 		
-//		Graph<Integer> minGraph = new Graph<>(vertices);
-		return minGraph;
+		Graph<E> minGraph = new Graph<E>(vertexCop);
+		
+		for (int i = 0; i < minEdge.size(); i++) {
+			minGraph.addEdge(minEdge.get(i));
+		}
+		
+		for (Edge e: minEdge) {
+			for (Vertex v: vertexCop) {
+				if (e.s.equals(v)) {
+					v.neighbors = e.s.neighbors;
+				}
+				else if (e.d.equals(v)) {
+					v.neighbors = e.d.neighbors;
+				}
+			}
+		}
+		
+		// These Sysout lines show that the MST has some data but not all data such as neighbors for 0, 4, 5
+		System.out.println(vertexCop.get(1).neighbors.get(0).s + ", " + vertexCop.get(1).neighbors.get(0).d +
+				", " + vertexCop.get(1).neighbors.get(0).weight);
+		System.out.println(vertexCop.get(2).neighbors.get(0).s + ", " + vertexCop.get(2).neighbors.get(0).d +
+				", " + vertexCop.get(2).neighbors.get(0).weight);
+		System.out.println(vertexCop.get(3).neighbors.get(0).s + ", " + vertexCop.get(3).neighbors.get(0).d +
+				", " + vertexCop.get(3).neighbors.get(0).weight); 
+		
+		
+		Graph<E> finGraph = new Graph<E>(vertexCop);
+		
+		return finGraph;
+	}
+	
+	private boolean addNeighbor(Edge edge) {
+		edge.s.neighbors.add(edge); 
+		edge.d.neighbors.add(edge); 
+		return true; 
 	}
 }
